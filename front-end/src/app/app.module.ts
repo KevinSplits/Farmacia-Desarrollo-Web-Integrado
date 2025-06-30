@@ -16,6 +16,8 @@ import { InventarioComponent } from './inventario/inventario.component';
 import { NuevaVentaComponent } from './nueva-venta/nueva-venta.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { VentasComponent } from './ventas/ventas.component';
+import { FormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [
@@ -36,7 +38,8 @@ import { VentasComponent } from './ventas/ventas.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
