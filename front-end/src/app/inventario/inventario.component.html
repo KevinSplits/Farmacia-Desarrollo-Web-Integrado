@@ -1,0 +1,106 @@
+<div class="app-content">
+  <h1 class="page-header">Inventario de Productos</h1>
+
+  <div class="panel panel-inverse">
+    <div class="panel-heading">
+      <h4 class="panel-title">Productos Disponibles</h4>
+    </div>
+    <div class="panel-body">
+
+      <!-- Formulario de búsqueda -->
+      <form (submit)="buscar()" class="search-box">
+        <div class="input-group">
+          <input type="text" [(ngModel)]="searchTerm" name="search" class="form-control" placeholder="Buscar productos...">
+          <button type="submit" class="btn btn-primary">Buscar</button>
+          <button type="button" (click)="limpiarBusqueda()" class="btn btn-default">Limpiar</button>
+        </div>
+      </form>
+
+      <!-- Tabla productos activos -->
+      <div class="table-responsive mt-3">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Descripción</th>
+              <th>Precio</th>
+              <th>Stock</th>
+              <th>Estado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let producto of productos">
+              <td>{{ producto.idproducto }}</td>
+              <td>{{ producto.descripcion }}</td>
+              <td>{{ producto.precio | number: '1.2-2' }} S/</td>
+              <td [ngClass]="{
+                    'stock-bajo': producto.stock < 10,
+                    'stock-medio': producto.stock >= 10 && producto.stock < 20,
+                    'stock-alto': producto.stock >= 20
+                }">{{ producto.stock }}</td>
+              <td>{{ producto.estado }}</td>
+              <td>
+                <a [routerLink]="['/productos/editar', producto.idproducto]" class="btn btn-sm btn-primary">Editar</a>
+                <button (click)="desactivarProducto(producto.idproducto)" class="btn btn-danger btn-sm">Desactivar</button>
+              </td>
+            </tr>
+            <tr *ngIf="productos.length === 0">
+              <td colspan="6" class="text-center">
+                No se encontraron productos {{ searchTerm ? 'con el término: ' + searchTerm : '' }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Tabla productos inactivos -->
+      <div class="panel panel-inverse mt-4">
+        <div class="panel-heading">
+          <h4 class="panel-title">Productos Inactivos</h4>
+        </div>
+        <div class="panel-body">
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Descripción</th>
+                  <th>Precio</th>
+                  <th>Stock</th>
+                  <th>Estado</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let producto of inactivos">
+                  <td>{{ producto.idproducto }}</td>
+                  <td>{{ producto.descripcion }}</td>
+                  <td>{{ producto.precio | number: '1.2-2' }} S/</td>
+                  <td>{{ producto.stock }}</td>
+                  <td>{{ producto.estado }}</td>
+                  <td>
+                    <a [routerLink]="['/productos/editar', producto.idproducto]" class="btn btn-sm btn-warning">Editar</a>
+                    <button (click)="activarProducto(producto.idproducto)" class="btn btn-sm btn-success">Activar</button>
+                  </td>
+                </tr>
+                <tr *ngIf="inactivos.length === 0">
+                  <td colspan="6" class="text-center">No hay productos inactivos</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Clases de stock -->
+<style>
+  .stock-bajo { color: #e74c3c; font-weight: bold; }
+  .stock-medio { color: #f39c12; }
+  .stock-alto { color: #2ecc71; }
+  .search-box { margin-bottom: 20px; }
+</style>

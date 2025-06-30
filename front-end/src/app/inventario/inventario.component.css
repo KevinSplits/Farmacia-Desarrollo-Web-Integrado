@@ -1,0 +1,357 @@
+/* Estilos generales */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+/* Contenido principal */
+.app-content {
+    padding: 20px;
+    margin-left: 250px; /* Ajustar según el ancho de tu sidebar */
+    width: calc(100% - 250px);
+    box-sizing: border-box;
+    min-height: calc(100vh - 60px); /* Ajustar según altura del header */
+    background-color: #f5f5f5;
+}
+
+/* Encabezado de página */
+.page-header {
+    color: #2c3e50;
+    margin-bottom: 25px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+/* Paneles */
+.panel {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    margin-bottom: 30px;
+    border: none;
+}
+
+.panel-inverse {
+    border: none;
+}
+
+.panel-heading {
+    padding: 15px 20px;
+    border-bottom: 1px solid #eee;
+    background-color: #f8f9fa;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.panel-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #2c3e50;
+    margin: 0;
+}
+
+.panel-body {
+    padding: 20px;
+}
+
+/* Formulario de búsqueda */
+.search-box {
+    margin-bottom: 25px;
+}
+
+.input-group {
+    display: flex;
+    width: 100%;
+    max-width: 600px;
+}
+
+.input-group .form-control {
+    flex: 1;
+    border-radius: 4px 0 0 4px;
+    border: 1px solid #ddd;
+    padding: 10px 15px;
+    font-size: 14px;
+    transition: border-color 0.3s;
+}
+
+.input-group .form-control:focus {
+    border-color: #3498db;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+}
+
+.input-group .btn {
+    border-radius: 0 4px 4px 0;
+    padding: 10px 15px;
+}
+
+.input-group .btn-default {
+    margin-left: 5px;
+    border-radius: 4px;
+}
+
+/* Tablas */
+.table-responsive {
+    overflow-x: auto;
+    margin-bottom: 20px;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th, .table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+.table th {
+    background-color: #f8f9fa;
+    color: #2c3e50;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 13px;
+}
+
+.table tr:hover {
+    background-color: #f9f9f9;
+}
+
+/* Estilos de stock */
+.stock-bajo { 
+    color: #e74c3c; 
+    font-weight: bold; 
+}
+
+.stock-medio { 
+    color: #f39c12; 
+    font-weight: 500;
+}
+
+.stock-alto { 
+    color: #2ecc71; 
+}
+
+/* Botones */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 12px;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.5;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    text-decoration: none;
+    border: 1px solid transparent;
+}
+
+.btn-sm {
+    padding: 5px 10px;
+    font-size: 12px;
+}
+
+.btn-primary {
+    background-color: #3498db;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #2980b9;
+}
+
+.btn-danger {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.btn-danger:hover {
+    background-color: #c0392b;
+}
+
+.btn-warning {
+    background-color: #f39c12;
+    color: white;
+}
+
+.btn-warning:hover {
+    background-color: #d35400;
+}
+
+.btn-success {
+    background-color: #2ecc71;
+    color: white;
+}
+
+.btn-success:hover {
+    background-color: #27ae60;
+}
+
+.btn-default {
+    background-color: #ecf0f1;
+    color: #7f8c8d;
+    border: 1px solid #ddd;
+}
+
+.btn-default:hover {
+    background-color: #d5dbdb;
+}
+
+.btn-icon {
+    padding: 6px;
+    width: 30px;
+    height: 30px;
+}
+
+/* Texto centrado */
+.text-center {
+    text-align: center;
+}
+
+/* Margen superior */
+.mt-4 {
+    margin-top: 1.5rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .app-content {
+        margin-left: 0;
+        width: 100%;
+        padding: 15px;
+    }
+    
+    .panel-body {
+        padding: 15px;
+    }
+    
+    .table th, .table td {
+        padding: 8px 10px;
+        font-size: 13px;
+    }
+    
+    .input-group {
+        flex-direction: column;
+    }
+    
+    .input-group .form-control {
+        border-radius: 4px;
+        margin-bottom: 5px;
+    }
+    
+    .input-group .btn {
+        border-radius: 4px;
+        width: 100%;
+        margin-bottom: 5px;
+    }
+    
+    .input-group .btn-default {
+        margin-left: 0;
+    }
+}
+
+
+/* Estilo para los precios */
+.price-cell {
+    text-align: right;
+    font-family: 'Courier New', monospace;
+    font-weight: 500;
+}
+
+.price-cell::before {
+    content: "S/ ";
+    font-size: 0.9em;
+    color: #7f8c8d;
+}
+
+/* Ajustar ancho de columnas */
+.table th:nth-child(3), 
+.table td:nth-child(3) {
+    width: 120px;
+}
+
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    background-color: #2c3e50;
+    color: white;
+    position: fixed;
+    left: 0;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s;
+}
+
+.logo {
+    padding: 20px;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.logo img {
+    max-width: 80%;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.logo h2 {
+    margin: 0;
+    font-size: 18px;
+    color: white;
+}
+
+.menu {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+    flex-grow: 1;
+}
+
+.menu li {
+    padding: 0;
+    margin: 0;
+}
+
+.menu li a {
+    display: block;
+    padding: 12px 20px;
+    color: #ecf0f1;
+    text-decoration: none;
+    transition: all 0.3s;
+    font-size: 15px;
+}
+
+.menu li a:hover {
+    background-color: #34495e;
+    color: #fff;
+    padding-left: 25px;
+}
+
+.menu li a.active {
+    background-color: #3498db;
+    color: white;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 0;
+        overflow: hidden;
+    }
+    
+    .sidebar.active {
+        width: 250px;
+    }
+}
