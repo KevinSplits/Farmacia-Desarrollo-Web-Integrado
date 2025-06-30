@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Clientes</title>
+    <link rel="stylesheet" href="/assets/css/sidebar.css" />
+    <link rel="stylesheet" href="/assets/css/clientes.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+<!-- Aquí iría el componente sidebar -->
+<!-- <app-sidebar></app-sidebar> -->
+
+<div class="main-content">
+    <div class="page-header">
+        <h1><i class="fas fa-users"></i> Gestión de Clientes</h1>
+        <a href="/clientes/agregar" class="btn btn-primary">
+            <i class="fas fa-plus"></i> Nuevo Cliente
+        </a>
+    </div>
+
+    <!-- Mensaje de éxito -->
+    <div class="alert alert-success">
+        Operación realizada correctamente
+    </div>
+
+    <div class="table-container">
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombres</th>
+                        <th>Apellidos</th>
+                        <th>DNI</th>
+                        <th>Teléfono</th>
+                        <th>Email</th>
+                        <th>Dirección</th>
+                        <th>Sexo</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><!-- ID --></td>
+                        <td><!-- Nombres --></td>
+                        <td><!-- Apellidos --></td>
+                        <td><!-- DNI --></td>
+                        <td><!-- Teléfono --></td>
+                        <td><!-- Email --></td>
+                        <td><!-- Dirección --></td>
+                        <td>
+                            <!-- Masculino o Femenino -->
+                        </td>
+                        <td>
+                            <span class="badge badge-success">Activo</span>
+                        </td>
+                        <td class="actions-cell">
+                            <a href="/clientes/editar/1" class="btn btn-edit">
+                                <i class="fas fa-edit"></i> Editar
+                            </a>
+                            <a href="/clientes/eliminar/1"
+                               class="btn btn-danger"
+                               onclick="return confirm('¿Estás seguro de anular este cliente?')">
+                                <i class="fas fa-trash"></i> Anular
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
