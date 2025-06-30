@@ -1,12 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent {
-  totalClientes: number = 0; // 👈 Agrega esto
+export class HomeComponent implements OnInit {
+  totalEmpleados: number = 0;
+  totalProductos: number = 0;
+  productosStockBajo: any[] = [];
+  ultimosClientes: any[] = [];
 
-  // Puedes luego actualizarlo desde una API o servicio
+  constructor() {}
+
+  ngOnInit(): void {
+    // Aquí puedes hacer llamadas a tus servicios para llenar estas propiedades
+    // Ejemplo (si tienes servicios definidos):
+    // this.empleadoService.obtenerTotalEmpleados().subscribe(data => this.totalEmpleados = data);
+  }
 }
