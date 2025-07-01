@@ -8,12 +8,15 @@ body {
     min-height: 100vh;
 }
 
-/* Contenedor principal */
-.main-content {
-    margin-left: 250px;
-    padding: 20px;
-    width: calc(100% - 250px);
+
+
+.main-content, .app-content {
+    margin-left: 300px;
+    padding: 24px 24px 0 24px;
+    width: calc(100% - 300px);
     box-sizing: border-box;
+    background: #f7fafd;
+    min-height: 100vh;
 }
 
 /* Encabezado de página */

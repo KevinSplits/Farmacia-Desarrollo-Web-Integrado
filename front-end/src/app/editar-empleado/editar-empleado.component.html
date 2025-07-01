@@ -10,62 +10,59 @@
 </head>
 <body>
 
-<!-- Aquí puedes insertar el sidebar como componente de Angular si lo tienes -->
-<!-- <app-sidebar></app-sidebar> -->
-
-<div class="main-content">
+<app-sidebar></app-sidebar>
+<div class="app-content">
   <div class="page-header">
     <h1><i class="fas fa-user-edit"></i> Editar Empleado</h1>
-    <a href="/empleados" class="btn btn-secondary">
+    <a routerLink="/empleados" class="btn btn-secondary">
       <i class="fas fa-arrow-left"></i> Volver
     </a>
   </div>
-
   <div class="employee-card">
     <div class="employee-body">
-      <form action="/empleados/guardar" method="post">
-        <input type="hidden" name="idempleado" />
+      <form (ngSubmit)="guardar()">
+        <input type="hidden" name="idempleado" [(ngModel)]="empleado.idempleado" ngModel />
 
         <div class="form-row">
           <div class="form-group col-md-6">
             <label>Nombres *</label>
-            <input type="text" class="form-control" name="nombres" required />
+            <input type="text" class="form-control" name="nombres" [(ngModel)]="empleado.nombres" required />
           </div>
 
           <div class="form-group col-md-6">
             <label>Apellidos *</label>
-            <input type="text" class="form-control" name="apellidos" required />
+            <input type="text" class="form-control" name="apellidos" [(ngModel)]="empleado.apellidos" required />
           </div>
         </div>
 
         <div class="form-row">
           <div class="form-group col-md-6">
             <label>DNI *</label>
-            <input type="text" class="form-control" name="dni" required pattern="[0-9]{8}" title="El DNI debe tener 8 dígitos" />
+            <input type="text" class="form-control" name="dni" [(ngModel)]="empleado.dni" required pattern="[0-9]{8}" title="El DNI debe tener 8 dígitos" />
           </div>
 
           <div class="form-group col-md-6">
             <label>Teléfono *</label>
-            <input type="tel" class="form-control" name="telefono" required pattern="[0-9]{9}" title="El teléfono debe tener 9 dígitos" />
+            <input type="tel" class="form-control" name="telefono" [(ngModel)]="empleado.telefono" required pattern="[0-9]{9}" title="El teléfono debe tener 9 dígitos" />
           </div>
         </div>
 
         <div class="form-row">
           <div class="form-group col-md-6">
             <label>Email *</label>
-            <input type="email" class="form-control" name="email" required />
+            <input type="email" class="form-control" name="email" [(ngModel)]="empleado.email" required />
           </div>
 
           <div class="form-group col-md-6">
             <label>Dirección</label>
-            <input type="text" class="form-control" name="direccion" />
+            <input type="text" class="form-control" name="direccion" [(ngModel)]="empleado.direccion" />
           </div>
         </div>
 
         <div class="form-row">
           <div class="form-group col-md-6">
             <label>Sexo *</label>
-            <select class="form-control" name="sexo" required>
+            <select class="form-control" name="sexo" [(ngModel)]="empleado.sexo" required>
               <option value="">Seleccionar</option>
               <option value="M">Masculino</option>
               <option value="F">Femenino</option>
@@ -74,7 +71,7 @@
 
           <div class="form-group col-md-6">
             <label>Estado *</label>
-            <select class="form-control" name="estado" required>
+            <select class="form-control" name="estado" [(ngModel)]="empleado.estado" required>
               <option value="Activo">Activo</option>
               <option value="Inactivo">Inactivo</option>
             </select>
@@ -84,7 +81,7 @@
         <div class="form-row">
           <div class="form-group col-md-6">
             <label>ID Usuario</label>
-            <input type="number" class="form-control" name="idusuario" />
+            <input type="number" class="form-control" name="idusuario" [(ngModel)]="empleado.idusuario" />
           </div>
         </div>
 
@@ -92,7 +89,7 @@
           <button type="submit" class="btn btn-primary">
             <i class="fas fa-save"></i> Guardar Cambios
           </button>
-          <a href="/empleados" class="btn btn-secondary">
+          <a routerLink="/empleados" class="btn btn-secondary">
             <i class="fas fa-times"></i> Cancelar
           </a>
         </div>

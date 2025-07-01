@@ -1,3 +1,4 @@
+
 package pe.edu.utp.farmacia.controller;
 
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,14 @@ import java.util.List;
 @Controller
 @RequestMapping("/farmacia/productos")
 public class ProductController {
+
+    // Endpoint REST para obtener producto por ID (JSON)
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/api/editar/{id}")
+    @ResponseBody
+    public ProductEntity getProductByIdApi(@PathVariable Integer id) {
+        return productService.getById(id);
+    }
 
     private final ProductService productService;
 

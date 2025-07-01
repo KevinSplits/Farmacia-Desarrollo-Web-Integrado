@@ -10,60 +10,57 @@
 </head>
 <body>
 
-<!-- Aquí iría tu sidebar como componente Angular -->
-<!-- <app-sidebar></app-sidebar> -->
-
-<div class="main-content">
+<app-sidebar></app-sidebar>
+<div class="app-content">
   <div class="page-header">
     <h1><i class="fas fa-user-edit"></i> Editar Cliente</h1>
-    <a href="/clientes" class="btn btn-secondary">
+    <a routerLink="/clientes" class="btn btn-secondary">
       <i class="fas fa-arrow-left"></i> Volver
     </a>
   </div>
-
   <div class="card">
     <div class="card-body">
-      <form action="/clientes/guardar" method="post">
-        <input type="hidden" name="idcliente" />
+      <form (ngSubmit)="guardar()">
+        <input type="hidden" name="idcliente" [(ngModel)]="cliente.idcliente" ngModel />
 
         <div class="form-row">
           <div class="form-group col-md-6">
             <label>Nombres *</label>
-            <input type="text" class="form-control" name="nombres" required />
+            <input type="text" class="form-control" name="nombres" [(ngModel)]="cliente.nombres" required />
           </div>
 
           <div class="form-group col-md-6">
             <label>Apellidos *</label>
-            <input type="text" class="form-control" name="apellidos" required />
+            <input type="text" class="form-control" name="apellidos" [(ngModel)]="cliente.apellidos" required />
           </div>
         </div>
 
         <div class="form-row">
           <div class="form-group col-md-6">
             <label>DNI *</label>
-            <input type="text" class="form-control" name="dni" required pattern="[0-9]{8}" title="El DNI debe tener 8 dígitos" />
+            <input type="text" class="form-control" name="dni" [(ngModel)]="cliente.dni" required pattern="[0-9]{8}" title="El DNI debe tener 8 dígitos" />
           </div>
 
           <div class="form-group col-md-6">
             <label>Teléfono</label>
-            <input type="tel" class="form-control" name="telefono" pattern="[0-9]{9}" title="El teléfono debe tener 9 dígitos" />
+            <input type="tel" class="form-control" name="telefono" [(ngModel)]="cliente.telefono" pattern="[0-9]{9}" title="El teléfono debe tener 9 dígitos" />
           </div>
         </div>
 
         <div class="form-group">
           <label>Email</label>
-          <input type="email" class="form-control" name="email" />
+          <input type="email" class="form-control" name="email" [(ngModel)]="cliente.email" />
         </div>
 
         <div class="form-group">
           <label>Dirección</label>
-          <input type="text" class="form-control" name="direccion" />
+          <input type="text" class="form-control" name="direccion" [(ngModel)]="cliente.direccion" />
         </div>
 
         <div class="form-row">
           <div class="form-group col-md-6">
             <label>Sexo *</label>
-            <select class="form-control" name="sexo" required>
+            <select class="form-control" name="sexo" [(ngModel)]="cliente.sexo" required>
               <option value="">Seleccionar</option>
               <option value="M">Masculino</option>
               <option value="F">Femenino</option>
@@ -72,7 +69,7 @@
 
           <div class="form-group col-md-6">
             <label>Estado *</label>
-            <select class="form-control" name="estado" required>
+            <select class="form-control" name="estado" [(ngModel)]="cliente.estado" required>
               <option value="Activo">Activo</option>
               <option value="Inactivo">Inactivo</option>
             </select>
@@ -83,7 +80,7 @@
           <button type="submit" class="btn btn-primary">
             <i class="fas fa-save"></i> Guardar Cambios
           </button>
-          <a href="/clientes" class="btn btn-secondary">
+          <a routerLink="/clientes" class="btn btn-secondary">
             <i class="fas fa-times"></i> Cancelar
           </a>
         </div>
