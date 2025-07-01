@@ -12,7 +12,6 @@ import java.util.Date;
 import java.util.List;
 import org.springframework.validation.BindingResult;
 
-@CrossOrigin(origins = "http://localhost:4200")
 @Controller
 @RequestMapping("/farmacia/ventas")
 public class SaleViewController {

@@ -12,10 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import jakarta.validation.Valid;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import pe.edu.utp.farmacia.entity.*;
 import pe.edu.utp.farmacia.services.UserService;
-@CrossOrigin(origins = "http://localhost:4200")
 
 @RestController
 public class UserController {
