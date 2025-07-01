@@ -1,0 +1,46 @@
+<html>
+
+<head>
+	<link th:href="@{/assets/css/vendor.min.css}" rel="stylesheet" />
+	<link th:href="@{/assets/css/default/app.min.css}" rel="stylesheet" />
+</head>
+
+<body>
+	<!-- BEGIN #app -->
+	<div id="app" class="app app-header-fixed app-sidebar-fixed">
+		<!-- BEGIN #header -->
+		<div th:replace="~{header::header}"></div>
+		<!-- END #header -->
+		<!-- BEGIN #sidebar -->
+		<div th:replace="~{siderbar::siderbar}"></div>
+
+		<!-- BEGIN #content -->
+		<div id="content" class="app-content">
+			<!-- BEGIN breadcrumb -->
+
+			<!-- END breadcrumb -->
+			<!-- BEGIN page-header -->
+			<h1 class="page-header">Blank Page <small>header small text goes here...</small></h1>
+			<!-- END page-header -->
+			<!-- BEGIN panel -->
+			<div class="panel panel-inverse">
+				<div class="panel-heading">
+					<h4 class="panel-title">Panel Title here</h4>
+				</div>
+				<div class="panel-body">
+					Panel Content Here
+				</div>
+			</div>
+			<!-- END panel -->
+		</div>
+
+	</div>
+
+	<!-- ================== BEGIN core-js ================== -->
+	<script th:src="@{/assets/js/vendor.min.js}"></script>
+	<script th:src="@{/assets/js/app.min.js}"></script>
+	<!-- ================== END core-js ================== -->
+
+</body>
+
+</html>

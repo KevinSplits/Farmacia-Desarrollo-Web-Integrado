@@ -1,0 +1,207 @@
+/* Estilos generales */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f7fa;
+    color: #333;
+}
+
+.app-content {
+    padding: 20px;
+    background-color: #f5f7fa;
+}
+
+.page-header {
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #e0e3eb;
+    color: #2c3e50;
+}
+
+.page-header small {
+    display: block;
+    font-size: 14px;
+    color: #7d8fa9;
+    margin-top: 5px;
+}
+
+/* Tarjetas del dashboard */
+.dashboard-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+    margin-bottom: 40px;
+}
+
+.dashboard-card {
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 25px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    border-left: 4px solid;
+    position: relative;
+    overflow: hidden;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-card:nth-child(1) {
+    border-left-color: #3498db; /* Azul para clientes */
+}
+
+.dashboard-card:nth-child(2) {
+    border-left-color: #2ecc71; /* Verde para empleados */
+}
+
+.dashboard-card:nth-child(3) {
+    border-left-color: #9b59b6; /* Morado para productos */
+}
+
+.dashboard-card:nth-child(4) {
+    border-left-color: #e74c3c; /* Rojo para stock bajo */
+}
+
+.card-icon {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    color: inherit;
+}
+
+.dashboard-card:nth-child(1) .card-icon {
+    color: #3498db;
+}
+
+.dashboard-card:nth-child(2) .card-icon {
+    color: #2ecc71;
+}
+
+.dashboard-card:nth-child(3) .card-icon {
+    color: #9b59b6;
+}
+
+.dashboard-card:nth-child(4) .card-icon {
+    color: #e74c3c;
+}
+
+.dashboard-card h3 {
+    font-size: 1.1rem;
+    margin: 0 0 10px 0;
+    color: #2c3e50;
+    font-weight: 600;
+}
+
+.card-value {
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin: 15px 0;
+    color: #2c3e50;
+}
+
+.dashboard-card p:last-child {
+    font-size: 0.9rem;
+    color: #7d8fa9;
+    margin: 0;
+}
+
+.stock-warning {
+    color: #e74c3c !important;
+}
+
+/* Paneles de tablas */
+.panel {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    margin-bottom: 30px;
+    background: #ffffff;
+}
+
+.panel-inverse .panel-heading {
+    background-color: #2c3e50;
+    color: white;
+    border-radius: 10px 10px 0 0;
+    padding: 15px 20px;
+    border: none;
+}
+
+.panel-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.panel-body {
+    padding: 20px;
+}
+
+/* Tablas */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table thead th {
+    background-color: #f8f9fa;
+    color: #2c3e50;
+    font-weight: 600;
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 2px solid #e0e3eb;
+}
+
+.table tbody td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #e0e3eb;
+    vertical-align: middle;
+}
+
+.table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.table tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+.text-danger {
+    color: #e74c3c;
+}
+
+.fw-bold {
+    font-weight: 700;
+}
+
+.text-center {
+    text-align: center;
+}
+
+/* Efectos adicionales */
+.dashboard-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 60%);
+    pointer-events: none;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .dashboard-cards {
+        grid-template-columns: 1fr;
+    }
+    
+    .panel-body {
+        padding: 15px;
+        overflow-x: auto;
+    }
+    
+    .table thead th, 
+    .table tbody td {
+        padding: 8px 10px;
+    }
+}

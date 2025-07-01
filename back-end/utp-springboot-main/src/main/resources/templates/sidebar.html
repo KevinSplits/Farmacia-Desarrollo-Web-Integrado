@@ -1,0 +1,14 @@
+<div th:fragment="sidebar" class="sidebar">
+    <div class="logo">
+        <img th:src="@{/assets/img/logo_1.png}" alt="Farmacia San Miguelito"/>
+        <h2>San Miguelito</h2>
+    </div>
+    <ul class="menu">
+        <li><a th:href="@{/farmacia/}">Dashboard</a></li>
+        <li><a th:href="@{/farmacia/empleados}">Empleados</a></li>
+        <li><a th:href="@{/farmacia/productos/inventario}">Inventario</a></li>
+        <li><a th:href="@{/farmacia/clientes}">Clientes</a></li>
+        <li><a th:href="@{/farmacia/ventas}">Ventas</a></li>
+        <li><a th:href="@{/login}">Cerrar Sesión</a></li>
+    </ul>
+</div>
