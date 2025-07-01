@@ -21,6 +21,10 @@ import { FormsModule } from '@angular/forms';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
+import { AuthService } from './services/auth.service';
+import { DashboardService } from './services/dashboard.service';
+import { AuthGuard } from './guards/auth.guard';
+import { LoginComponent } from './login/login.component';
 
 
 @NgModule({
@@ -38,7 +42,8 @@ import { DomSanitizer } from '@angular/platform-browser';
     InventarioComponent,
     NuevaVentaComponent,
     SidebarComponent,
-    VentasComponent
+    VentasComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -48,6 +53,9 @@ import { DomSanitizer } from '@angular/platform-browser';
     MatIconModule
   ],
   providers: [
+    AuthService,
+    DashboardService,
+    AuthGuard,
     provideAnimationsAsync(),
     MatIconRegistry
   ],

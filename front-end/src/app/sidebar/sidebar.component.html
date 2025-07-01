@@ -1,13 +1,15 @@
-<div class="sidebar">
-    <div class="logo">
-        <img src="assets/img/logo_1.png" alt="Farmacia San Miguelito" style="max-width: 220px; max-height: 220px; margin-bottom: 16px; border-radius: 20px; box-shadow: 0 6px 24px rgba(52,152,219,0.16);" />
-        <h2>San Miguelito</h2>
+<aside *ngIf="isVisible" class="sidebar">
+    <div class="sidebar">
+        <div class="logo">
+            <img src="assets/img/logo_1.png" alt="Farmacia San Miguelito" style="max-width: 220px; max-height: 220px; margin-bottom: 16px; border-radius: 20px; box-shadow: 0 6px 24px rgba(52,152,219,0.16);" />
+            <h2>San Miguelito</h2>
+        </div>
+        <ul class="menu">
+            <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Dashboard</a></li>
+            <li><a routerLink="/empleados" routerLinkActive="active">Empleados</a></li>
+            <li><a routerLink="/productos" routerLinkActive="active">Inventario</a></li>
+            <li><a routerLink="/clientes" routerLinkActive="active">Clientes</a></li>
+            <li><a routerLink="/ventas" routerLinkActive="active">Ventas</a></li>
+        </ul>
     </div>
-    <ul class="menu">
-        <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Dashboard</a></li>
-        <li><a routerLink="/empleados" routerLinkActive="active">Empleados</a></li>
-        <li><a routerLink="/productos" routerLinkActive="active">Inventario</a></li>
-        <li><a routerLink="/clientes" routerLinkActive="active">Clientes</a></li>
-        <li><a routerLink="/ventas" routerLinkActive="active">Ventas</a></li>
-    </ul>
-</div>
+</aside>

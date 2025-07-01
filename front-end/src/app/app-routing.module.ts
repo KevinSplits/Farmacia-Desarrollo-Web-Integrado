@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './guards/auth.guard';
+import { LoginComponent } from './login/login.component';
 
 // Clientes
 import { ClientesComponent } from './clientes/clientes.component';
@@ -23,10 +25,15 @@ import { NuevaVentaComponent } from './nueva-venta/nueva-venta.component';
 import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
+  { path: 'login', component: LoginComponent },
+  { path: '', component: HomeComponent, canActivate: [AuthGuard] }, // Protegida
 
   // Clientes
-  { path: 'clientes', component: ClientesComponent },
+  { 
+    path: 'clientes', 
+    component: ClientesComponent, 
+    canActivate: [AuthGuard] 
+  },
   { path: 'clientes/agregar', component: AgregarClienteComponent },
   { path: 'clientes/editar/:id', component: EditarClienteComponent },
 

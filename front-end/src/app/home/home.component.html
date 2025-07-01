@@ -1,153 +1,114 @@
-<head>
-  <link rel="stylesheet" href="/assets/css/sidebar.css" />
-  <link rel="stylesheet" href="/assets/css/dashboard.css" />
-  <link href="/assets/css/vendor.min.css" rel="stylesheet" />
-  <link href="/assets/css/default/app.min.css" rel="stylesheet" />
-  <title>Dashboard - Farmacia</title>
-  <style>
-    .dashboard-cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-      margin-bottom: 30px;
-    }
-    .dashboard-card {
-      background: #fff;
-      border-radius: 5px;
-      padding: 20px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      transition: transform 0.3s ease;
-    }
-    .dashboard-card:hover {
-      transform: translateY(-5px);
-    }
-    .card-value {
-      font-size: 2rem;
-      font-weight: bold;
-      margin: 10px 0;
-      color: #2c3e50;
-    }
-    .card-icon {
-      font-size: 2rem;
-      color: #3498db;
-    }
-    .recent-table {
-      width: 100%;
-      margin-top: 20px;
-    }
-    .stock-warning {
-      color: #e74c3c;
-      font-weight: bold;
-    }
-    .dashboard-section {
-      margin-bottom: 30px;
-    }
-  </style>
-</head>
+<div id="content" class="app-content">
+  <!-- Barra superior -->
+  <div class="navbar-user d-flex justify-content-end">
+    <span class="user-greeting">
+      Bienvenido, {{ currentUser?.nombres || 'Usuario' }} ({{ currentUser?.role || 'Rol' }})
+    </span>
+    <button (click)="logout()" class="btn btn-sm btn-outline-secondary">
+      <i class="fas fa-sign-out-alt"></i> Cerrar sesión
+    </button>
+  </div>
 
-<body>
-  <div id="content" class="app-content">
-    <h1 class="page-header">Dashboard <small>Resumen del sistema</small></h1>
+  <!-- Contenido principal -->
+  <h1 class="page-header">Dashboard <small>Resumen del sistema</small></h1>
 
-    <!-- Dashboard Cards -->
-    <div class="dashboard-cards">
-      <div class="dashboard-card">
-        <div class="card-icon">
-          <mat-icon svgIcon="clientes" style="font-size:56px; margin-bottom:2px;"></mat-icon>
-        </div>
-        <h3>Clientes Registrados</h3>
-        <p class="card-value">{{ totalClientes }}</p>
-        <p>Clientes activos en el sistema</p>
+  <!-- Tarjetas de resumen -->
+  <div class="dashboard-cards">
+    <div class="dashboard-card">
+      <div class="card-icon">
+        <i class="fas fa-users"></i>
       </div>
-
-      <div class="dashboard-card">
-        <div class="card-icon">
-          <mat-icon svgIcon="empleados" style="font-size:56px; margin-bottom:2px;"></mat-icon>
-        </div>
-        <h3>Empleados</h3>
-        <p class="card-value">{{ totalEmpleados }}</p>
-        <p>Personal registrado</p>
-      </div>
-
-      <div class="dashboard-card">
-        <div class="card-icon">
-          <mat-icon svgIcon="productos" style="font-size:56px; margin-bottom:2px;"></mat-icon>
-        </div>
-        <h3>Productos</h3>
-        <p class="card-value">{{ totalProductos }}</p>
-        <p>Productos en inventario</p>
-      </div>
-
-      <div class="dashboard-card">
-        <div class="card-icon">
-          <mat-icon svgIcon="stock-bajo" style="font-size:56px; margin-bottom:2px;"></mat-icon>
-        </div>
-        <h3>Stock Bajo</h3>
-        <p class="card-value stock-warning">{{ productosStockBajo.length || 0 }}</p>
-        <p>Productos con stock crítico</p>
-      </div>
+      <h3>Clientes Registrados</h3>
+      <p class="card-value">{{ totalClientes }}</p>
+      <p>Clientes activos en el sistema</p>
     </div>
 
-    <!-- Productos con stock bajo -->
-    <div class="panel panel-inverse">
-      <div class="panel-heading">
-        <h4 class="panel-title">Productos con stock bajo</h4>
+    <div class="dashboard-card">
+      <div class="card-icon">
+        <i class="fas fa-id-badge"></i>
       </div>
-      <div class="panel-body">
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <th>Producto</th>
-              <th>Descripción</th>
-              <th>Stock Actual</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let producto of productosStockBajo">
-              <td>{{ producto.idproducto }}</td>
-              <td>{{ producto.descripcion }}</td>
-              <td [ngClass]="{ 'text-danger fw-bold': producto.stock < 10 }">
-                {{ producto.stock }}
-              </td>
-            </tr>
-            <tr *ngIf="productosStockBajo?.length === 0">
-              <td colspan="3" class="text-center">No hay productos con stock bajo</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      <h3>Empleados</h3>
+      <p class="card-value">{{ totalEmpleados }}</p>
+      <p>Personal registrado</p>
     </div>
 
-    <!-- Últimos clientes registrados -->
-    <div class="panel panel-inverse">
-      <div class="panel-heading">
-        <h4 class="panel-title">Últimos clientes registrados</h4>
+    <div class="dashboard-card">
+      <div class="card-icon">
+        <i class="fas fa-pills"></i>
       </div>
-      <div class="panel-body">
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <th>Nombre</th>
-              <th>DNI</th>
-              <th>Teléfono</th>
-              <th>Email</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let cliente of ultimosClientes">
-              <td>{{ cliente.nombres }} {{ cliente.apellidos }}</td>
-              <td>{{ cliente.dni }}</td>
-              <td>{{ cliente.telefono }}</td>
-              <td>{{ cliente.email }}</td>
-            </tr>
-            <tr *ngIf="ultimosClientes?.length === 0">
-              <td colspan="4" class="text-center">No hay clientes registrados</td>
-            </tr>
-          </tbody>
-        </table>
+      <h3>Productos</h3>
+      <p class="card-value">{{ totalProductos }}</p>
+      <p>Productos en inventario</p>
+    </div>
+
+    <div class="dashboard-card">
+      <div class="card-icon">
+        <i class="fas fa-exclamation-triangle"></i>
       </div>
+      <h3>Stock Bajo</h3>
+      <p class="card-value stock-warning">{{ productosStockBajo.length }}</p>
+      <p>Productos con stock crítico</p>
     </div>
   </div>
 
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-</body>
+  <!-- Productos con stock bajo -->
+  <div class="panel panel-inverse">
+    <div class="panel-heading">
+      <h4 class="panel-title">Productos con stock bajo</h4>
+    </div>
+    <div class="panel-body">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Descripción</th>
+            <th>Stock Actual</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let producto of productosStockBajo">
+            <td>{{ producto.idproducto }}</td>
+            <td>{{ producto.descripcion }}</td>
+            <td [class.text-danger]="producto.stock < 10" 
+                [class.fw-bold]="producto.stock < 10">
+              {{ producto.stock }}
+            </td>
+          </tr>
+          <tr *ngIf="productosStockBajo.length === 0">
+            <td colspan="3" class="text-center">No hay productos con stock bajo</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Últimos clientes registrados -->
+  <div class="panel panel-inverse">
+    <div class="panel-heading">
+      <h4 class="panel-title">Últimos clientes registrados</h4>
+    </div>
+    <div class="panel-body">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>DNI</th>
+            <th>Teléfono</th>
+            <th>Email</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let cliente of ultimosClientes">
+            <td>{{ cliente.nombres }} {{ cliente.apellidos }}</td>
+            <td>{{ cliente.dni }}</td>
+            <td>{{ cliente.telefono }}</td>
+            <td>{{ cliente.email }}</td>
+          </tr>
+          <tr *ngIf="ultimosClientes.length === 0">
+            <td colspan="4" class="text-center">No hay clientes registrados</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
