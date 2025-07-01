@@ -6,8 +6,6 @@ import org.springframework.web.bind.annotation.*;
 import pe.edu.utp.farmacia.entity.EmployeeEntity;
 import pe.edu.utp.farmacia.services.EmployeeService;
 
-
-@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/farmacia/employees")
 public class EmployeeController {

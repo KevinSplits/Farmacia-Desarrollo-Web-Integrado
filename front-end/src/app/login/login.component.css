@@ -1,0 +1,27 @@
+.login-container {
+  max-width: 400px;
+  margin: 5rem auto;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.btn-login {
+  background-color: #4e73df;
+  transition: all 0.3s;
+}
+
+.btn-login:hover {
+  background-color: #3a5ec2;
+}
+
+.alert {
+  margin-bottom: 1rem;
+}

@@ -9,7 +9,6 @@ import pe.edu.utp.farmacia.services.ProductService;
 
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:4200")
 @Controller
 @RequestMapping("/farmacia/productos")
 public class ProductController {

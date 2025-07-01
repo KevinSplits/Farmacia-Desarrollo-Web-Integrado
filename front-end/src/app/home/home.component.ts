@@ -1,8 +1,11 @@
 
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../services/auth.service';
 import { ClientService } from '../services/client.service';
 import { EmployeeService } from '../services/employee.service';
 import { ProductoService } from '../services/producto.service';
+import { DashboardService } from '../services/dashboard.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -16,26 +19,38 @@ export class HomeComponent implements OnInit {
   totalProductos: number = 0;
   productosStockBajo: any[] = [];
   ultimosClientes: any[] = [];
+  currentUser: any;
 
   constructor(
-    private clientService: ClientService,
-    private employeeService: EmployeeService,
-    private productoService: ProductoService
+    private authService: AuthService,
+    private dashboardService: DashboardService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.clientService.getAllClients().subscribe((clientes: any[]) => {
-      this.totalClientes = clientes.filter(c => c.estado === 'Activo').length;
-      this.ultimosClientes = clientes.slice(-5).reverse();
+    this.loadUserData();
+    this.loadDashboardData();
+  }
+
+  loadUserData() {
+    this.currentUser = this.authService.getCurrentUser();
+  }
+
+  loadDashboardData() {
+    this.dashboardService.getResumen().subscribe({
+      next: (data) => {
+        this.totalClientes = data.totalClientes;
+        this.totalEmpleados = data.totalEmpleados;
+        this.totalProductos = data.totalProductos;
+        this.productosStockBajo = data.productosStockBajo;
+        this.ultimosClientes = data.ultimosClientes;
+      },
+      error: (err) => console.error('Error loading dashboard data', err)
     });
-    this.employeeService.getAllEmployees().subscribe((empleados: any[]) => {
-      this.totalEmpleados = empleados.filter(e => e.estado === 'Activo').length;
-    });
-    this.productoService.getProductosActivos().subscribe((productos: any[]) => {
-      this.totalProductos = productos.length;
-    });
-    this.productoService.getProductosStockBajo().subscribe((stockBajo: any[]) => {
-      this.productosStockBajo = stockBajo;
-    });
+  }
+
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
 }

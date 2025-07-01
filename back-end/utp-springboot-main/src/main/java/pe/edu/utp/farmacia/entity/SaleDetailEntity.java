@@ -10,10 +10,9 @@ public class SaleDetailEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer iddetalle;
     
-  @ManyToOne
-@JoinColumn(name = "idventa")
-@com.fasterxml.jackson.annotation.JsonBackReference
-private SaleEntity venta;
+    @ManyToOne
+    @JoinColumn(name = "idventa")
+    private SaleEntity venta;
     
     @ManyToOne
     @JoinColumn(name = "idproducto")

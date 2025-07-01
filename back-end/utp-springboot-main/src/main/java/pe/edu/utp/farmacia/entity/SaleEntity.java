@@ -35,8 +35,7 @@ public class SaleEntity {
     private String estado;
     
     @OneToMany(mappedBy = "venta", cascade = CascadeType.ALL, orphanRemoval = true)
-@com.fasterxml.jackson.annotation.JsonManagedReference
-private List<SaleDetailEntity> detalles = new ArrayList<>();
+    private List<SaleDetailEntity> detalles = new ArrayList<>();
 
     // Constructores
     public SaleEntity() {
