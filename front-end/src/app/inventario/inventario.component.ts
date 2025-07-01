@@ -17,27 +17,32 @@ export class InventarioComponent implements OnInit {
     this.cargarProductos();
   }
 
+
   cargarProductos(): void {
-    this.productoService.getProductos().subscribe((data: any[]) => {
-      this.productos = data.filter(p => p.estado === 'Activo');
-      this.inactivos = data.filter(p => p.estado !== 'Activo');
+    this.productoService.getProductosActivos().subscribe((activos: any[]) => {
+      this.productos = activos;
+    });
+    this.productoService.getProductosInactivos().subscribe((inactivos: any[]) => {
+      this.inactivos = inactivos;
     });
   }
 
   buscar(): void {
-    if (this.searchTerm.trim() === '') {
+    const term = this.searchTerm.trim().toLowerCase();
+    if (term === '') {
       this.cargarProductos();
     } else {
-      this.productoService.getProductos().subscribe((data: any[]) => {
-        const term = this.searchTerm.toLowerCase();
-        this.productos = data.filter(p => p.estado === 'Activo' && (
+      this.productoService.getProductosActivos().subscribe((activos: any[]) => {
+        this.productos = activos.filter(p =>
           p.descripcion?.toLowerCase().includes(term) ||
           p.idproducto?.toString().includes(term)
-        ));
-        this.inactivos = data.filter(p => p.estado !== 'Activo' && (
+        );
+      });
+      this.productoService.getProductosInactivos().subscribe((inactivos: any[]) => {
+        this.inactivos = inactivos.filter(p =>
           p.descripcion?.toLowerCase().includes(term) ||
           p.idproducto?.toString().includes(term)
-        ));
+        );
       });
     }
   }
@@ -47,10 +52,15 @@ export class InventarioComponent implements OnInit {
     this.cargarProductos();
   }
 
+
   desactivarProducto(id: number): void {
     // Aquí deberías llamar a un método del servicio para desactivar el producto
     // Por ahora solo recarga la lista
     this.cargarProductos();
+  }
+
+  productosFiltradosStockBajo(): any[] {
+    return this.productos.filter(p => p.stock < 10);
   }
 
   activarProducto(id: number): void {

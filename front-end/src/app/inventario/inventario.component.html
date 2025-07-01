@@ -34,11 +34,13 @@
               <td>{{ producto.idproducto }}</td>
               <td>{{ producto.descripcion }}</td>
               <td>{{ producto.precio | number: '1.2-2' }} S/</td>
-              <td [ngClass]="{
-                    'stock-bajo': producto.stock < 10,
-                    'stock-medio': producto.stock >= 10 && producto.stock < 20,
-                    'stock-alto': producto.stock >= 20
-                }">{{ producto.stock }}</td>
+              <td>
+                <span [ngClass]="{
+                  'stock-bajo': producto.stock < 10,
+                  'stock-medio': producto.stock >= 10 && producto.stock < 20,
+                  'stock-alto': producto.stock >= 20
+                }">{{ producto.stock }}</span>
+              </td>
               <td>{{ producto.estado }}</td>
               <td>
                 <a [routerLink]="['/productos/editar', producto.idproducto]" class="btn btn-sm btn-primary">Editar</a>
@@ -53,6 +55,35 @@
           </tbody>
         </table>
       </div>
+
+      <!-- Mostrar productos con stock bajo si existen -->
+      <ng-container *ngIf="productos && productos.length > 0">
+        <div class="mt-4" *ngIf="productosFiltradosStockBajo().length > 0">
+          <div class="panel panel-warning">
+            <div class="panel-heading">
+              <h4 class="panel-title">Productos con stock bajo</h4>
+            </div>
+            <div class="panel-body">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Descripción</th>
+                    <th>Stock</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let producto of productosFiltradosStockBajo()" [ngClass]="{'stock-bajo': producto.stock < 10}">
+                    <td>{{ producto.idproducto }}</td>
+                    <td>{{ producto.descripcion }}</td>
+                    <td>{{ producto.stock }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </ng-container>
 
       <!-- Tabla productos inactivos -->
       <div class="panel panel-inverse mt-4">

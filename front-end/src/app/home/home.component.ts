@@ -31,9 +31,11 @@ export class HomeComponent implements OnInit {
     this.employeeService.getAllEmployees().subscribe((empleados: any[]) => {
       this.totalEmpleados = empleados.filter(e => e.estado === 'Activo').length;
     });
-    this.productoService.getProductos().subscribe((productos: any[]) => {
-      this.totalProductos = productos.filter(p => p.estado === 'Activo').length;
-      this.productosStockBajo = productos.filter(p => p.estado === 'Activo' && p.stock < 10);
+    this.productoService.getProductosActivos().subscribe((productos: any[]) => {
+      this.totalProductos = productos.length;
+    });
+    this.productoService.getProductosStockBajo().subscribe((stockBajo: any[]) => {
+      this.productosStockBajo = stockBajo;
     });
   }
 }

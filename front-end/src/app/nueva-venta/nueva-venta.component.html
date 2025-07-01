@@ -1,281 +1,132 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Nueva Venta</title>
-    <link rel="stylesheet" th:href="@{/assets/css/sidebar.css}" />
-    <link rel="stylesheet" th:href="@{/assets/css/ventas.css}" />
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-    />
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-</head>
-<body>
-    <div th:replace="~{sidebar::sidebar}"></div>
+<div class="main-content">
+  <div class="page-header">
+    <h1>
+      <i class="fas fa-cash-register"></i> Nueva Venta
+    </h1>
+    <a routerLink="/ventas" class="btn btn-secondary">
+      <i class="fas fa-arrow-left"></i> Volver
+    </a>
+  </div>
 
-    <div class="main-content">
-        <div class="page-header">
-            <h1>
-                <i class="fas fa-cash-register"></i> Nueva Venta
-            </h1>
-            <a th:href="@{/farmacia/ventas}" class="btn btn-secondary">
-                <i class="fas fa-arrow-left"></i> Volver
-            </a>
+  <form (ngSubmit)="registrarVenta()">
+    <div class="sale-card">
+      <div class="sale-header">
+        <div class="form-group">
+          <label>Fecha:</label>
+          <span>{{ fecha | date: 'dd/MM/yyyy HH:mm' }}</span>
+        </div>
+      </div>
+
+      <div class="sale-body">
+        <div class="form-row">
+          <div class="form-group col-md-4">
+            <label>Cliente *</label>
+            <select class="form-control" [(ngModel)]="selectedClientId" name="cliente" required>
+              <option value="">Seleccionar cliente</option>
+              <option *ngFor="let client of clients" [value]="client.idcliente">
+                {{ client.nombres }} {{ client.apellidos }}
+              </option>
+            </select>
+          </div>
+
+          <div class="form-group col-md-4">
+            <label>Empleado *</label>
+            <select class="form-control" [(ngModel)]="selectedEmployeeId" name="empleado" required>
+              <option value="">Seleccionar empleado</option>
+              <option *ngFor="let employee of employees" [value]="employee.idempleado">
+                {{ employee.nombres }} {{ employee.apellidos }}
+              </option>
+            </select>
+          </div>
+
+          <div class="form-group col-md-4">
+            <label>Tipo de Comprobante *</label>
+            <select class="form-control" [(ngModel)]="selectedVoucherTypeId" name="voucherType" required>
+              <option value="">Seleccionar comprobante</option>
+              <option *ngFor="let voucher of voucherTypes" [value]="voucher.idtipocomprobante">
+                {{ voucher.descripcion }}
+              </option>
+            </select>
+          </div>
         </div>
 
-        <form
-            th:action="@{/farmacia/ventas/guardar}"
-            th:object="${sale}"
-            method="post"
-        >
-            <div class="sale-card">
-                <div class="sale-header">
-                    <div class="form-group">
-                        <label>Fecha:</label>
-                        <span
-                            th:text="${#dates.format(sale.fecha, 'dd/MM/yyyy HH:mm')}"
-                        ></span>
-                    </div>
-                </div>
 
-                <div class="sale-body">
-                    <div class="form-row">
-                        <div class="form-group col-md-4">
-                            <label>Cliente *</label>
-                            <select
-                                class="form-control"
-                                th:field="*{cliente.idcliente}"
-                                required
-                            >
-                                <option value="">Seleccionar cliente</option>
-                                <option
-                                    th:each="client : ${clients}"
-                                    th:value="${client.idcliente}"
-                                    th:text="${client.nombres + ' ' + client.apellidos}"
-                                ></option>
-                            </select>
-                        </div>
+        <div class="sale-details">
+          <h3>Detalle de Venta</h3>
+          <table class="details-table">
+            <thead>
+              <tr>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Precio Unitario</th>
+                <th>Descuento</th>
+                <th>Subtotal</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let detalle of detalles; let i = index">
+                <td>
+                  <select class="form-control" [(ngModel)]="detalle.producto" name="producto{{i}}" (change)="actualizarPrecio(i)" required>
+                    <option value="">Seleccionar producto</option>
+                    <option *ngFor="let p of productos" [value]="p.idproducto">
+                      {{ p.descripcion }} (Stock: {{ p.stock }})
+                    </option>
+                  </select>
+                </td>
+                <td>
+                  <input type="number" class="form-control" [(ngModel)]="detalle.cantidad" name="cantidad{{i}}" min="1" [max]="getStock(detalle.producto)" required />
+                </td>
+                <td>
+                  <input type="number" class="form-control" [(ngModel)]="detalle.precioUnitario" name="precio{{i}}" min="0" step="0.01" required />
+                </td>
+                <td>
+                  <input type="number" class="form-control" [(ngModel)]="detalle.descuento" name="descuento{{i}}" min="0" step="0.01" />
+                </td>
+                <td>
+                  S/ {{ calcularSubtotal(detalle) | number:'1.2-2' }}
+                </td>
+                <td>
+                  <button type="button" class="btn btn-danger btn-sm" (click)="eliminarDetalle(i)"><i class="fas fa-trash"></i></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <button type="button" class="btn btn-sm btn-primary" (click)="agregarDetalle()">
+            <i class="fas fa-plus"></i> Agregar Producto
+          </button>
+        </div>
 
-                        <div class="form-group col-md-4">
-                            <label>Empleado *</label>
-                            <select
-                                class="form-control"
-                                th:field="*{empleado.idempleado}"
-                                required
-                            >
-                                <option value="">Seleccionar empleado</option>
-                                <option
-                                    th:each="employee : ${employees}"
-                                    th:value="${employee.idempleado}"
-                                    th:text="${employee.nombres + ' ' + employee.apellidos}"
-                                ></option>
-                            </select>
-                        </div>
-
-                        <div class="form-group col-md-4">
-                            <label>Tipo de Comprobante *</label>
-                            <select
-                                class="form-control"
-                                th:field="*{tipoComprobante.idtipocomprobante}"
-                                required
-                            >
-                                <option value="">Seleccionar comprobante</option>
-                                <option
-                                    th:each="voucher : ${voucherTypes}"
-                                    th:value="${voucher.idtipocomprobante}"
-                                    th:text="${voucher.descripcion}"
-                                ></option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="sale-details">
-                        <h3>Detalle de Venta</h3>
-                        <table class="details-table">
-                            <thead>
-                                <tr>
-                                    <th>Producto</th>
-                                    <th>Cantidad</th>
-                                    <th>Precio Unitario</th>
-                                    <th>Descuento</th>
-                                    <th>Subtotal</th>
-                                    <th>Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody id="detailRows">
-                            </tbody>
-                        </table>
-
-                        <button
-                            type="button"
-                            id="addProductBtn"
-                            class="btn btn-sm btn-primary"
-                        >
-                            <i class="fas fa-plus"></i> Agregar Producto
-                        </button>
-                    </div>
-
-                    <div class="sale-totals">
-                        <div class="form-row">
-                            <div class="form-group col-md-3">
-                                <label>Subtotal:</label>
-                                <span id="subtotal">S/ 0.00</span>
-                            </div>
-
-                            <div class="form-group col-md-3">
-                                <label>Descuento General:</label>
-                                <input
-                                    type="number"
-                                    class="form-control"
-                                    id="generalDiscount"
-                                    th:field="*{descuento}"
-                                    min="0"
-                                    step="0.01"
-                                    value="0"
-                                />
-                            </div>
-
-                            <div class="form-group col-md-3">
-                                <label>IGV (18%):</label>
-                                <span id="igv">S/ 0.00</span>
-                                <input type="hidden" th:field="*{igv}" id="igvValue" />
-                            </div>
-
-                            <div class="form-group col-md-3">
-                                <label>Total:</label>
-                                <span id="total">S/ 0.00</span>
-                                <input
-                                    type="hidden"
-                                    th:field="*{total}"
-                                    id="totalValue"
-                                />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="sale-footer">
-                    <button type="submit" class="btn btn-primary">
-                        <i class="fas fa-save"></i> Registrar Venta
-                    </button>
-                    <a th:href="@{/farmacia/ventas}" class="btn btn-secondary">
-                        <i class="fas fa-times"></i> Cancelar
-                    </a>
-                </div>
+        <div class="sale-totals">
+          <div class="form-row">
+            <div class="form-group col-md-3">
+              <label>Subtotal:</label>
+              <span>S/ {{ subtotal | number:'1.2-2' }}</span>
             </div>
-        </form>
+            <div class="form-group col-md-3">
+              <label>Descuento General:</label>
+              <input type="number" class="form-control" min="0" step="0.01" value="0" disabled />
+            </div>
+            <div class="form-group col-md-3">
+              <label>IGV (18%):</label>
+              <span>S/ {{ igv | number:'1.2-2' }}</span>
+            </div>
+            <div class="form-group col-md-3">
+              <label>Total:</label>
+              <span>S/ {{ total | number:'1.2-2' }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sale-footer">
+        <button type="submit" class="btn btn-primary">
+          <i class="fas fa-save"></i> Registrar Venta
+        </button>
+        <a routerLink="/ventas" class="btn btn-secondary">
+          <i class="fas fa-times"></i> Cancelar
+        </a>
+      </div>
     </div>
-
-    <script>
-        $(document).ready(function () {
-    let rowIndex = 0;
-    const productOptions = $('#productOptions').html(); // Plantilla de opciones
-
-    $('#addProductBtn').click(function () {
-        const row = $('<tr></tr>');
-
-        const productSelect = $('<select class="form-control product-select" required></select>')
-            .attr('name', `detalles[${rowIndex}].producto.idproducto`)
-            .html(productOptions);
-
-        const quantityInput = $('<input type="number" class="form-control quantity" min="1" value="1" required>')
-            .attr('name', `detalles[${rowIndex}].cantidad`);
-
-        const priceInput = $('<input type="number" class="form-control price" step="0.01" min="0" required>')
-            .attr('name', `detalles[${rowIndex}].precioUnitario`);
-
-        const discountInput = $('<input type="number" class="form-control discount" step="0.01" min="0" value="0">')
-            .attr('name', `detalles[${rowIndex}].descuento`);
-
-        const subtotalCell = $('<td class="subtotal">S/ 0.00</td>');
-
-        const removeBtn = $('<button type="button" class="btn btn-danger btn-sm remove-row"><i class="fas fa-trash"></i></button>')
-            .click(function () {
-                row.remove();
-                calculateTotals();
-            });
-
-        // Eventos para inputs
-        productSelect.change(function () {
-            const selected = $(this).find('option:selected');
-            const price = selected.data('price') || 0;
-            const stock = selected.data('stock') || 0;
-            priceInput.val(price);
-            quantityInput.attr('max', stock);
-            calculateRowSubtotal(row);
-            calculateTotals();
-        });
-
-        quantityInput.on('input', () => {
-            calculateRowSubtotal(row);
-            calculateTotals();
-        });
-
-        priceInput.on('input', () => {
-            calculateRowSubtotal(row);
-            calculateTotals();
-        });
-
-        discountInput.on('input', () => {
-            calculateRowSubtotal(row);
-            calculateTotals();
-        });
-
-        row.append($('<td></td>').append(productSelect));
-        row.append($('<td></td>').append(quantityInput));
-        row.append($('<td></td>').append(priceInput));
-        row.append($('<td></td>').append(discountInput));
-        row.append(subtotalCell);
-        row.append($('<td></td>').append(removeBtn));
-
-        $('#detailRows').append(row);
-        rowIndex++;
-    });
-
-    function calculateRowSubtotal(row) {
-        const quantity = parseFloat(row.find('.quantity').val()) || 0;
-        const price = parseFloat(row.find('.price').val()) || 0;
-        const discount = parseFloat(row.find('.discount').val()) || 0;
-        const subtotal = quantity * price - discount;
-        row.find('.subtotal').text('S/ ' + subtotal.toFixed(2));
-    }
-
-    function calculateTotals() {
-        let subtotal = 0;
-
-        $('#detailRows tr').each(function () {
-            const rowSubtotal =
-                parseFloat($(this).find('.subtotal').text().replace('S/ ', '')) || 0;
-            subtotal += rowSubtotal;
-        });
-
-        const generalDiscount = parseFloat($('#generalDiscount').val()) || 0;
-        const base = subtotal - generalDiscount;
-        const igv = base * 0.18;
-        const total = base + igv;
-
-        $('#subtotal').text('S/ ' + subtotal.toFixed(2));
-        $('#igv').text('S/ ' + igv.toFixed(2));
-        $('#total').text('S/ ' + total.toFixed(2));
-
-        $('#igvValue').val(igv.toFixed(2));
-        $('#totalValue').val(total.toFixed(2));
-    }
-
-    $('#generalDiscount').on('input', calculateTotals);
-});
-
-    </script>
-    <script type="text/template" id="productOptions">
-    <option value="">Seleccionar producto</option>
-    <option
-        th:each="p : ${productos}"
-        th:value="${p.idproducto}"
-        th:text="${p.descripcion + ' (Stock: ' + p.stock + ')'}"
-        th:attr="data-price=${p.precio}, data-stock=${p.stock}"
-    ></option>
-</script>
-</body>
-</html>
+  </form>
+</div>
