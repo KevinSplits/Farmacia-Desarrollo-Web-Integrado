@@ -1,21 +1,39 @@
+
 import { Component, OnInit } from '@angular/core';
+import { ClientService } from '../services/client.service';
+import { EmployeeService } from '../services/employee.service';
+import { ProductoService } from '../services/producto.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
+
 export class HomeComponent implements OnInit {
+  totalClientes: number = 0;
   totalEmpleados: number = 0;
   totalProductos: number = 0;
   productosStockBajo: any[] = [];
   ultimosClientes: any[] = [];
 
-  constructor() {}
+  constructor(
+    private clientService: ClientService,
+    private employeeService: EmployeeService,
+    private productoService: ProductoService
+  ) {}
 
   ngOnInit(): void {
-    // Aquí puedes hacer llamadas a tus servicios para llenar estas propiedades
-    // Ejemplo (si tienes servicios definidos):
-    // this.empleadoService.obtenerTotalEmpleados().subscribe(data => this.totalEmpleados = data);
+    this.clientService.getAllClients().subscribe((clientes: any[]) => {
+      this.totalClientes = clientes.filter(c => c.estado === 'Activo').length;
+      this.ultimosClientes = clientes.slice(-5).reverse();
+    });
+    this.employeeService.getAllEmployees().subscribe((empleados: any[]) => {
+      this.totalEmpleados = empleados.filter(e => e.estado === 'Activo').length;
+    });
+    this.productoService.getProductos().subscribe((productos: any[]) => {
+      this.totalProductos = productos.filter(p => p.estado === 'Activo').length;
+      this.productosStockBajo = productos.filter(p => p.estado === 'Activo' && p.stock < 10);
+    });
   }
 }

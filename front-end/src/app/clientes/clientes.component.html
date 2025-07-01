@@ -1,29 +1,10 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestión de Clientes</title>
-    <link rel="stylesheet" href="/assets/css/sidebar.css" />
-    <link rel="stylesheet" href="/assets/css/clientes.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-</head>
-<body>
-
-<!-- Aquí iría el componente sidebar -->
-<!-- <app-sidebar></app-sidebar> -->
 
 <div class="main-content">
     <div class="page-header">
         <h1><i class="fas fa-users"></i> Gestión de Clientes</h1>
-        <a href="/clientes/agregar" class="btn btn-primary">
+        <a routerLink="/clientes/agregar" class="btn btn-primary">
             <i class="fas fa-plus"></i> Nuevo Cliente
         </a>
-    </div>
-
-    <!-- Mensaje de éxito -->
-    <div class="alert alert-success">
-        Operación realizada correctamente
     </div>
 
     <div class="table-container">
@@ -44,36 +25,34 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td><!-- ID --></td>
-                        <td><!-- Nombres --></td>
-                        <td><!-- Apellidos --></td>
-                        <td><!-- DNI --></td>
-                        <td><!-- Teléfono --></td>
-                        <td><!-- Email --></td>
-                        <td><!-- Dirección --></td>
+                    <tr *ngFor="let cliente of clientes">
+                        <td>{{ cliente.idcliente }}</td>
+                        <td>{{ cliente.nombres }}</td>
+                        <td>{{ cliente.apellidos }}</td>
+                        <td>{{ cliente.dni }}</td>
+                        <td>{{ cliente.telefono }}</td>
+                        <td>{{ cliente.email }}</td>
+                        <td>{{ cliente.direccion }}</td>
+                        <td>{{ cliente.sexo }}</td>
                         <td>
-                            <!-- Masculino o Femenino -->
-                        </td>
-                        <td>
-                            <span class="badge badge-success">Activo</span>
+                            <span class="badge" [ngClass]="{'badge-success': cliente.estado === 'Activo', 'badge-danger': cliente.estado !== 'Activo'}">
+                                {{ cliente.estado }}
+                            </span>
                         </td>
                         <td class="actions-cell">
-                            <a href="/clientes/editar/1" class="btn btn-edit">
+                            <a [routerLink]="['/clientes/editar', cliente.idcliente]" class="btn btn-edit">
                                 <i class="fas fa-edit"></i> Editar
                             </a>
-                            <a href="/clientes/eliminar/1"
-                               class="btn btn-danger"
-                               onclick="return confirm('¿Estás seguro de anular este cliente?')">
+                            <button (click)="anularCliente(cliente.idcliente)" class="btn btn-danger">
                                 <i class="fas fa-trash"></i> Anular
-                            </a>
+                            </button>
                         </td>
+                    </tr>
+                    <tr *ngIf="clientes.length === 0">
+                        <td colspan="10" class="text-center">No hay clientes registrados</td>
                     </tr>
                 </tbody>
             </table>
         </div>
     </div>
 </div>
-
-</body>
-</html>

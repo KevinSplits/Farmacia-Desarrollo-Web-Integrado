@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ProductoService } from '../services/producto.service';
 
 @Component({
   selector: 'app-inventario',
@@ -7,30 +8,54 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InventarioComponent implements OnInit {
   searchTerm: string = '';
-  productos: any[] = []; // Simulación
+  productos: any[] = [];
   inactivos: any[] = [];
 
-  constructor() {}
+  constructor(private productoService: ProductoService) {}
 
   ngOnInit(): void {
-    // Aquí cargarías los productos desde el servicio
+    this.cargarProductos();
+  }
+
+  cargarProductos(): void {
+    this.productoService.getProductos().subscribe((data: any[]) => {
+      this.productos = data.filter(p => p.estado === 'Activo');
+      this.inactivos = data.filter(p => p.estado !== 'Activo');
+    });
   }
 
   buscar(): void {
-    console.log('Buscando:', this.searchTerm);
-    // Aquí va el filtro real según tu lógica
+    if (this.searchTerm.trim() === '') {
+      this.cargarProductos();
+    } else {
+      this.productoService.getProductos().subscribe((data: any[]) => {
+        const term = this.searchTerm.toLowerCase();
+        this.productos = data.filter(p => p.estado === 'Activo' && (
+          p.descripcion?.toLowerCase().includes(term) ||
+          p.idproducto?.toString().includes(term)
+        ));
+        this.inactivos = data.filter(p => p.estado !== 'Activo' && (
+          p.descripcion?.toLowerCase().includes(term) ||
+          p.idproducto?.toString().includes(term)
+        ));
+      });
+    }
   }
 
   limpiarBusqueda(): void {
     this.searchTerm = '';
-    this.buscar(); // O recargar productos
+    this.cargarProductos();
   }
 
   desactivarProducto(id: number): void {
-    console.log('Desactivar producto con ID:', id);
+    // Aquí deberías llamar a un método del servicio para desactivar el producto
+    // Por ahora solo recarga la lista
+    this.cargarProductos();
   }
 
   activarProducto(id: number): void {
-    console.log('Activar producto con ID:', id);
+    // Aquí deberías llamar a un método del servicio para activar el producto
+    // Por ahora solo recarga la lista
+    this.cargarProductos();
   }
 }

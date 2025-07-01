@@ -42,32 +42,32 @@
             <th>Acciones</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td>Juan</td>
-            <td>Pérez</td>
-            <td>12345678</td>
-            <td>987654321</td>
-            <td>juan&#64;example.com</td>
-            <td>Av. Siempre Viva 123</td>
-            <td>Masculino</td>
-            <td>
-              <span class="badge-employee badge-active">Activo</span>
-            </td>
-            <td class="actions-cell">
-              <a href="/empleados/editar/1" class="btn btn-edit">
-                <i class="fas fa-edit"></i> Editar
-              </a>
-              <a href="/empleados/eliminar/1"
-                 class="btn btn-danger"
-                 onclick="return confirm('¿Estás seguro de anular este empleado?')">
-                <i class="fas fa-trash"></i> Anular
-              </a>
-            </td>
-          </tr>
-          <!-- Puedes duplicar esta fila con otros datos si lo necesitas -->
-        </tbody>
+<tbody>
+  <tr *ngFor="let empleado of empleados">
+    <td>{{ empleado.idempleado }}</td>
+    <td>{{ empleado.nombres }}</td>
+    <td>{{ empleado.apellidos }}</td>
+    <td>{{ empleado.dni }}</td>
+    <td>{{ empleado.telefono }}</td>
+    <td>{{ empleado.email }}</td>
+    <td>{{ empleado.direccion }}</td>
+    <td>{{ empleado.sexo }}</td>
+    <td>
+      <span class="badge-employee" [ngClass]="{'badge-active': empleado.estado === 'Activo', 'badge-inactive': empleado.estado !== 'Activo'}">{{ empleado.estado }}</span>
+    </td>
+    <td class="actions-cell">
+      <a [routerLink]="['/empleados/editar', empleado.idempleado]" class="btn btn-edit">
+        <i class="fas fa-edit"></i> Editar
+      </a>
+      <button (click)="anularEmpleado(empleado.idempleado)" class="btn btn-danger">
+        <i class="fas fa-trash"></i> Anular
+      </button>
+    </td>
+  </tr>
+  <tr *ngIf="empleados.length === 0">
+    <td colspan="10" class="text-center">No hay empleados registrados</td>
+  </tr>
+</tbody>
       </table>
     </div>
   </div>
