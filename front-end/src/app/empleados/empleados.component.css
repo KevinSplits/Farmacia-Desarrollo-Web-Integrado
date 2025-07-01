@@ -1,52 +1,28 @@
-/* Estilos generales */
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f5f5f5;
-    margin: 0;
-    padding: 0;
-    display: flex;
+@import url('../../styles.css');
+
+.main-content {
+    margin-left: 300px;
+    padding: 24px 24px 0 24px;
+    width: calc(100% - 300px);
+    box-sizing: border-box;
+    background: #f7fafd;
     min-height: 100vh;
 }
 
-/* Contenedor principal */
-.main-content {
-    margin-left: 250px;
-    padding: 20px;
-    width: calc(100% - 250px);
-    box-sizing: border-box;
-}
-
-/* Encabezado de página */
 .page-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid #e0e3eb;
+    padding-bottom: 12px;
 }
 
 .page-header h1 {
     margin: 0;
-    color: #333;
-}
-
-/* Tarjetas */
-.card {
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-}
-
-.card-body {
-    padding: 20px;
-}
-
-/* Formularios */
-.form-row {
-    display: flex;
-    flex-wrap: wrap;
-    margin-right: -15px;
-    margin-left: -15px;
+    color: #2c3e50;
+    font-size: 2rem;
+    font-weight: 600;
 }
 
 .form-group {
@@ -150,9 +126,10 @@ body {
 .table-container {
     background-color: white;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
     padding: 20px;
     margin-top: 20px;
+    /* border-left: 4px solid #2ecc71; */
 }
 
 .table-responsive {
@@ -168,16 +145,21 @@ table th, table td {
     padding: 12px 15px;
     text-align: left;
     border-bottom: 1px solid #ddd;
+    font-family: 'Segoe UI', 'Arial', 'sans-serif';
+    font-size: 15px;
+    font-weight: 400;
+    letter-spacing: 0.1px;
 }
 
 table th {
     background-color: #f8f9fa;
-    color: #333;
-    font-weight: 600;
+    color: #2ecc71;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    border-bottom: 2px solid #2ecc71;
 }
 
-table tr:hover {
-    background-color: #f5f5f5;
+    background-color: #f7fafd;
 }
 
 .actions-cell {
@@ -274,6 +256,10 @@ table tr:hover {
 .employee-table th {
     background-color: #4b6cb7;
     color: white;
+    font-family: 'Segoe UI', 'Arial', 'sans-serif';
+    font-size: 15px;
+    font-weight: 400;
+    letter-spacing: 0.2px;
 }
 
 .employee-table tr:nth-child(even) {
@@ -281,7 +267,7 @@ table tr:hover {
 }
 
 .employee-table tr:hover {
-    background-color: #e9ecef;
+    background-color: #f7fafd;
 }
 
 /* Badges específicos para empleados */
@@ -345,6 +331,7 @@ table tr:hover {
     margin: 0;
     font-size: 18px;
     color: white;
+    font-weight: 400;
 }
 
 .menu {

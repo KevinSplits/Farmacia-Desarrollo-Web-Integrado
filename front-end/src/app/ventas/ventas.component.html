@@ -19,7 +19,7 @@
                     <th>IGV</th>
                     <th>Total</th>
                     <th>Estado</th>
-                    <th>Acciones</th>
+                    <!-- <th>Acciones</th> -->
                 </tr>
             </thead>
             <tbody>
@@ -38,14 +38,7 @@
                           {{ venta.estado }}
                         </span>
                     </td>
-                    <td>
-                        <button *ngIf="venta.estado === 'Activo'" class="btn btn-danger" (click)="anularVenta(venta.idventa)">
-                            <i class="fas fa-ban"></i> Anular
-                        </button>
-                        <button class="btn btn-info" (click)="verDetalle(venta.idventa)">
-                            <i class="fas fa-eye"></i> Ver
-                        </button>
-                    </td>
+                    <!-- Acciones eliminadas -->
                 </tr>
                 <tr *ngIf="ventas.length === 0">
                   <td colspan="11" class="text-center">No hay ventas registradas</td>

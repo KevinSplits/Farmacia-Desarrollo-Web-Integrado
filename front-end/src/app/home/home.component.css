@@ -1,22 +1,20 @@
-/* Estilos generales */
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f5f7fa;
-    color: #333;
-}
-
-.app-content {
-    padding: 20px;
-    background-color: #f5f7fa;
-    margin-left: 250px; /* Deja espacio para el sidebar */
+@import url('../../styles.css');
+.main-content, .app-content {
+    margin-left: 300px;
+    padding: 24px 24px 0 24px;
+    width: calc(100% - 300px);
+    box-sizing: border-box;
+    background: #f7fafd;
     min-height: 100vh;
-    transition: margin-left 0.3s;
 }
 
 .page-header {
-    margin-bottom: 30px;
-    padding-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
     border-bottom: 1px solid #e0e3eb;
+    padding-bottom: 12px;
     color: #2c3e50;
 }
 
@@ -63,8 +61,11 @@ body {
     border-left-color: #9b59b6; /* Morado para productos */
 }
 
+/* Stock bajo: color naranja y sin borde rojo fuerte */
+/* Stock bajo: borde naranja, sin sombra especial */
 .dashboard-card:nth-child(4) {
-    border-left-color: #e74c3c; /* Rojo para stock bajo */
+    border-left-color: #f39c12; /* Naranja para stock bajo */
+    /* Sin sombra ni efecto extra */
 }
 
 .card-icon {
@@ -86,14 +87,14 @@ body {
 }
 
 .dashboard-card:nth-child(4) .card-icon {
-    color: #e74c3c;
+    color: #f39c12;
 }
 
 .dashboard-card h3 {
     font-size: 1.1rem;
     margin: 0 0 10px 0;
     color: #2c3e50;
-    font-weight: 600;
+    font-weight: 400;
 }
 
 .card-value {
@@ -110,7 +111,8 @@ body {
 }
 
 .stock-warning {
-    color: #e74c3c !important;
+    color: #f39c12 !important;
+    font-weight: bold;
 }
 
 /* Paneles de tablas */
@@ -231,8 +233,9 @@ body {
 
 .logo h2 {
     margin: 0;
-    font-size: 18px;
+    font-size: 28px;
     color: white;
+    font-weight: 400;
 }
 
 .menu {

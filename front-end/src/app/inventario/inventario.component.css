@@ -8,13 +8,13 @@ body {
 }
 
 /* Contenido principal */
-.app-content {
-    padding: 20px;
-    margin-left: 250px; /* Ajustar según el ancho de tu sidebar */
-    width: calc(100% - 250px);
+.app-content, .main-content {
+    margin-left: 300px;
+    padding: 24px 24px 0 24px;
+    width: calc(100% - 300px);
     box-sizing: border-box;
-    min-height: calc(100vh - 60px); /* Ajustar según altura del header */
-    background-color: #f5f5f5;
+    min-height: 100vh;
+    background: #f7fafd;
 }
 
 /* Encabezado de página */

@@ -18,6 +18,9 @@ import { NuevaVentaComponent } from './nueva-venta/nueva-venta.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { VentasComponent } from './ventas/ventas.component';
 import { FormsModule } from '@angular/forms';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
+import { DomSanitizer } from '@angular/platform-browser';
 
 
 @NgModule({
@@ -41,9 +44,32 @@ import { FormsModule } from '@angular/forms';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatIconModule
   ],
-  providers: [],
+  providers: [
+    provideAnimationsAsync(),
+    MatIconRegistry
+  ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
+    iconRegistry.addSvgIcon(
+      'clientes',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/icons/clientes.svg')
+    );
+    iconRegistry.addSvgIcon(
+      'empleados',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/icons/empleados.svg')
+    );
+    iconRegistry.addSvgIcon(
+      'productos',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/icons/productos.svg')
+    );
+    iconRegistry.addSvgIcon(
+      'stock-bajo',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/icons/stock-bajo.svg')
+    );
+  }
+}
